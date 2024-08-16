@@ -6,7 +6,7 @@ def buildJar() {
 def buildImage() {
     echo "building the docker image..."
     withCredentials([usernamePassword(credentialsId: 'DockerHubUserPass', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-        sh 'docker build -t ahmedasifcs/javaapp-maven .'
+        sh 'docker build -t ahmedasifcs/javaapp-maven -f jenkins-jobs/Dockerfile .'
         sh "echo $PASS | docker login -u $USER --password-stdin"
         sh 'docker push ahmedasifcs/javaapp-maven'
     }
