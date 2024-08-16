@@ -8,6 +8,15 @@ pipeline {
         maven 'maven-3.9' 
     }
     stages {
+
+         stage('Checkout') {
+            steps {
+                script {
+                    checkout scm
+                }
+            }
+        }
+        
         stage("init") {
             steps {
                 script {
