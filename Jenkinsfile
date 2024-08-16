@@ -1,7 +1,9 @@
 def gv
-
 pipeline {
     agent any
+     tools {
+        maven 'maven-3.9' // This should match the name of the Maven installation configured in Jenkins
+    }
     stages {
         stage("init") {
             steps {
