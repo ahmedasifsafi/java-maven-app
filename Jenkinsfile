@@ -1,37 +1,39 @@
-def gv
 pipeline {
     agent any
-     tools {
-        maven 'maven-3.9' // This should match the name of the Maven installation configured in Jenkins
-    }
     stages {
-        stage("init") {
+        
+        stage("Test") {
             steps {
                 script {
-                    gv = load "script.groovy"
+                    echo "Testing the application"
+                    echo "Executing pipeline for branch "BRANCH_NAME"
                 }
             }
         }
-        stage("build jar") {
-            steps {
-                script {           
-                    gv.buildJar()
+        stage("build") {
+            when{
+                expression{
+                    BRANCH_NAME == "master"
                 }
             }
-        }
-        stage("build image") {
-            steps {
-                script {
-                    gv.buildImage()
-                }
-            }
-        }
-        stage("deploy") {
             steps {
                 script {
-                    gv.deployApp()
+                    echo "Building the application"
                 }
             }
         }
-    }   
+        stage("Deploy") {
+                when{
+                expression{
+                    BRANCH_NAME == "master"
+                }
+            }
+            steps {
+                script {
+                     echo "Deploying the application"
+                }
+            }
+        }
+      
+    }
 }
