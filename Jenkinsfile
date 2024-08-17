@@ -2,7 +2,7 @@ pipeline {
     agent any
     stages {
         
-        stage("Test") {
+        stage("test") {
             steps {
                 script {
                     echo "Testing the application"
@@ -22,7 +22,7 @@ pipeline {
                 }
             }
         }
-        stage("Deploy") {
+        stage("deploy") {
                 when{
                 expression{
                     BRANCH_NAME == "master"
